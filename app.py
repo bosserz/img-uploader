@@ -31,12 +31,7 @@ def upload_image():
         return redirect(request.url)
     
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        
-        # Process the image and print EXIF data
-        exif_data = process_image(filepath)
+        exif_data = process_image(file)
         return render_template('upload.html', exif_data=exif_data)
 
     return redirect(request.url)
