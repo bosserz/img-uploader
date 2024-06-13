@@ -10,9 +10,12 @@
       <input type="file" name="file">
       <input type="submit" value="Upload">
     </form>
-    {% if exif_data %}
-      <h2>EXIF Data:</h2>
-      <pre>{{ exif_data }}</pre>
+    <div style="max-width: 600px;">
+        {% if exif_data %}
+        <h2>EXIF Data:</h2>
+        <p style="font-family: 'Courier New', Courier, monospace;">{{ exif_data }}</p>
     {% endif %}
+    </div>
+    
   </body>
 </html>

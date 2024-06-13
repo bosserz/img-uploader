@@ -43,10 +43,10 @@ def process_image(filepath):
 
         if exif_data is not None:
             exif_dict = piexif.load(image.info["exif"])
-            datetime_1 = exif_dict['Exif'][36867]
-            device = exif_dict['Exif'][42036]
-            exif = {"datetime": datetime_1,
-            "device": device}
+            # datetime_1 = exif_dict['Exif'][36867]
+            # device = exif_dict['Exif'][42036]
+            # exif = {"datetime": datetime_1,
+            # "device": device}
             # exif = {
             #     piexif.TAGS[key]["name"]: exif_data[key]
             #     for key in exif_data
@@ -55,7 +55,7 @@ def process_image(filepath):
             # for key, val in exif.items():
             #     print(f"{key}: {val}")
 
-            return exif
+            return exif_dict
         else:
             print("No EXIF data found")
             return "No EXIF data found"
