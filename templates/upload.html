@@ -2,20 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Upload Image</title>
   </head>
   <body>
-    <h1>Upload Image</h1>
-    <form method="post" enctype="multipart/form-data">
-      <input type="file" name="file">
-      <input type="submit" value="Upload">
-    </form>
-    <div style="max-width: 600px;">
-        {% if exif_data %}
-        <h2>EXIF Data:</h2>
-        <p style="font-family: 'Courier New', Courier, monospace;">{{ exif_data }}</p>
-    {% endif %}
+    <div class="container mt-5">
+      <h1 class="text-center">Upload Image</h1>
+      <form method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="form-group">
+          <input type="file" name="file" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+      </form>
+      {% if exif_data %}
+        <h2 class="mt-5">EXIF Data:</h2>
+        <pre>{{ exif_data }}</pre>
+      {% endif %}
     </div>
-    
   </body>
 </html>
