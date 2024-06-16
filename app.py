@@ -60,7 +60,7 @@ def process_image(filepath):
         
         else:
             print("No datetime data")
-            return None
+            return data.get('Exif', {}).get(37510)
 
     except Exception as e:
         print(f"Error processing image: {e}")
