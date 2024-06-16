@@ -59,6 +59,7 @@ def process_image(filepath):
                 return None
         
         else:
+            print("No datetime data")
             return None
 
     except Exception as e:
