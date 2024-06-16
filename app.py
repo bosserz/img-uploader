@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
+from datetime import datetime
 import os
 from PIL import Image
 import piexif
@@ -39,10 +40,34 @@ def upload_image():
 def process_image(filepath):
     try:
         image = Image.open(filepath)
-        exif_data = image._getexif()
+        # exif_data = image._getexif()
+        data = piexif.load(image.info["exif"])
+        datetime_str = (data.get('0th', {}).get(306) 
+                        or data.get('Exif', {}).get(36867)
+                        or data.get('Exif', {}).get(36868))
 
-        if exif_data is not None:
-            exif_dict = piexif.load(image.info["exif"])
+        if datetime_str:
+            # Decode the byte string to a regular string
+            datetime_str = datetime_str.decode('utf-8')
+            
+            try:
+                # Convert the datetime string to a datetime object
+                datetime_obj = datetime.strptime(datetime_str, '%Y:%m:%d %H:%M:%S')
+                return datetime_obj
+            except ValueError:
+                print("Invalid datetime format")
+                return None
+        
+        else:
+            return None
+
+    except Exception as e:
+        print(f"Error processing image: {e}")
+        return str(e)
+        
+
+        # if exif_data is not None:
+        #     exif_dict = piexif.load(image.info["exif"])
             # datetime_1 = exif_dict['Exif'][36867]
             # device = exif_dict['Exif'][42036]
             # exif = {"datetime": datetime_1,
@@ -55,13 +80,13 @@ def process_image(filepath):
             # for key, val in exif.items():
             #     print(f"{key}: {val}")
 
-            return exif_dict
-        else:
-            print("No EXIF data found")
-            return "No EXIF data found"
-    except Exception as e:
-        print(f"Error processing image: {e}")
-        return str(e)
+            # return exif_dict
+        # else:
+        #     print("No EXIF data found")
+        #     return "No EXIF data found"
+    # except Exception as e:
+    #     print(f"Error processing image: {e}")
+    #     return str(e)
 
 if __name__ == "__main__":
     app.run(debug=True)
