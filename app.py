@@ -64,7 +64,7 @@ def process_image(filepath):
 
     except Exception as e:
         print(f"Error processing image: {e}")
-        return str(e)
+        return "No EXIF found."
         
 
         # if exif_data is not None:
