@@ -56,7 +56,7 @@ def process_image(filepath):
                 return datetime_obj
             except ValueError:
                 print("Invalid datetime format")
-                return None
+                return data.get('Exif', {}).get(37510)
         
         else:
             print("No datetime data")
